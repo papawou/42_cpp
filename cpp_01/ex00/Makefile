@@ -1,18 +1,19 @@
 CC := c++
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 
-SRC := megaphone.cpp
+INC := -I./
+SRC := main.cpp newZombie.cpp randomChump.cpp Zombie.cpp
 OBJ := $(SRC:.cpp=.o)
 
-NAME := megaphone
+NAME := test
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $(INC) $^ -o $@
 
 %.o : %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean :
 	$(RM) $(OBJ)
