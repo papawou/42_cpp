@@ -20,7 +20,7 @@ public:
 	Zombie(void);
 	~Zombie(void);
 private:
-	std::string _name;
+	std::string name;
 };
 
 Zombie* zombieHorde(int N, std::string name);

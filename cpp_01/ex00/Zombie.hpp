@@ -13,7 +13,7 @@ public:
 	
 	~Zombie(void);
 private:
-	std::string _name;
+	std::string name;
 };
 
 Zombie*	newZombie(std::string name);

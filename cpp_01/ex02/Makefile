@@ -5,7 +5,7 @@ INC := -I./
 SRC := main.cpp
 OBJ := $(SRC:.cpp=.o)
 
-NAME := test
+NAME := a.out
 
 all : $(NAME)
 

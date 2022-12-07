@@ -2,10 +2,10 @@ CC := c++
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 
 INC := -I./
-SRC := main.cpp newZombie.cpp randomChump.cpp Zombie.cpp
+SRC := main.cpp Fixed.cpp
 OBJ := $(SRC:.cpp=.o)
 
-NAME := a.out
+NAME := HarlFilter
 
 all : $(NAME)
 
