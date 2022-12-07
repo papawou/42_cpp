@@ -1,6 +1,8 @@
 #ifndef FIXED_HPP
 # define FIXED_HPP
 
+#include <ostream>
+
 class Fixed
 {
 public:
@@ -21,5 +23,7 @@ private:
 	static int const f_bits = 8;
 	int nb;
 };
+
+std::ostream& operator<<(std::ostream &os, Fixed const &f);
 
 #endif
