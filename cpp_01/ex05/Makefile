@@ -2,10 +2,10 @@ CC := c++
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 
 INC := -I./
-SRC := main.cpp
+SRC := main.cpp Harl.cpp
 OBJ := $(SRC:.cpp=.o)
 
-NAME := a.out
+NAME := Harl
 
 all : $(NAME)
 

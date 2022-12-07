@@ -1,38 +1,12 @@
 
 #include <iostream>
 
-class HumanA
-{
-public:
-	HumanA(int &a_) : a(a_){};
-	int &a;
-	void tostring(void) const
-	{
-		std::cout << a << std::endl;
-	}
-};
-
-
 int main()
 {
-	int test = 58;
-	int &testref = test;
+	int const tab[] = {1,2,3};
 
-	std::cout << "test: " << test << std::endl;
+	int const tab2[] = {5, 6, 7};
 
-	int b = 542;
-	
-	testref = b;
-
-	std::cout << "test: " <<  test << std::endl;
-
-	HumanA h = HumanA(b);
-
-	h.tostring();
-	b = 42;
-	h.tostring();
-	int c = 80;
-	h.a = c;
-	h.tostring();
+	tab[0] = 4;
 }
 
