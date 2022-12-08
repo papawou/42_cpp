@@ -16,13 +16,14 @@ public:
 	ClapTrap(ClapTrap const &);
 	ClapTrap& operator=(ClapTrap const &);
 	~ClapTrap(void);
-private:
+protected:
 	std::string _name;
 	int	_hit_points;
 	int _energy_points;
 	int _attack_damage;
 
 	void log(std::string const &str);
+private:
 };
 
 #endif

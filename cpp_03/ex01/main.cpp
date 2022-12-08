@@ -1,11 +1,9 @@
 #include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
+
+#include <iostream>
 
 int main(void)
 {
-	ClapTrap test("PLOP");
-
-	test.attack("DUMMY");
-	test.beRepaired(42);
-	test.takeDamage(42);
-	test.takeDamage(42);
+	
 }
