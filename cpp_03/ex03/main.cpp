@@ -5,4 +5,10 @@
 
 int main(void)
 {
+	ClapTrap c;
+	ScavTrap a;
+	ScavTrap b;
+
+	a = b;
+	a.guardGate();
 }

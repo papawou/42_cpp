@@ -46,12 +46,12 @@ void ScavTrap::attack(std::string const &target)
 	--_energy_points;
 }
 
-void ScavTrap::guardGate(void)
+void ScavTrap::guardGate(void) const
 {
 	log("mode Gate keeper enabled");
 }
 
-void ScavTrap::log(std::string const &str)
+void ScavTrap::log(std::string const &str) const
 {
 	ft_putstr("ScavTrap " + _name + " " + str);
 }

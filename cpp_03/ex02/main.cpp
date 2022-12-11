@@ -5,4 +5,7 @@
 
 int main(void)
 {
+	ScavTrap a;
+
+	a.guardGate();
 }

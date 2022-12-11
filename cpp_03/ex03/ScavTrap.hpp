@@ -7,9 +7,10 @@
 class ScavTrap : public ClapTrap
 {
 public:
-	void ScavTrap::attack(std::string const &name);
-	void guardGate(void);
+	void guardGate(void) const;
+	void attack(std::string const &target);
 
+//
 	ScavTrap(std::string name);
 //colpien
 	ScavTrap(void);
@@ -17,7 +18,7 @@ public:
 	~ScavTrap(void);
 	ScavTrap &operator=(ScavTrap const &);
 private:
-	void log(std::string const &str);
+	void log(std::string const &str) const;
 };
 
 #endif

@@ -1,20 +1,14 @@
 #include "ScavTrap.hpp"
 #include "main.hpp"
 
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name, 100, 50, 20)
 {
 	log("constructor");
-	_hit_points = 100;
-	_energy_points = 50;
-	_attack_damage = 20;
 }
 
-ScavTrap::ScavTrap(void) : ClapTrap()
+ScavTrap::ScavTrap(void) : ClapTrap("defaultScav", 100, 50, 20)
 {
 	log("default constructor");
-	_hit_points = 100;
-	_energy_points = 50;
-	_attack_damage = 20;
 }
 
 ScavTrap::ScavTrap(ScavTrap const &c) : ClapTrap(c)
@@ -22,9 +16,10 @@ ScavTrap::ScavTrap(ScavTrap const &c) : ClapTrap(c)
 	log("copy constructor");
 }
 
-ScavTrap &ScavTrap::operator=(ScavTrap const &c)
+ScavTrap &ScavTrap::operator=(ScavTrap const &rhs)
 {
-	ClapTrap::operator=(c);
+	if (this != &rhs)
+		ClapTrap::operator=(rhs);
 	log("operator=");
 	return (*this);
 }
@@ -46,12 +41,12 @@ void ScavTrap::attack(std::string const &target)
 	--_energy_points;
 }
 
-void ScavTrap::guardGate(void)
+void ScavTrap::guardGate(void) const
 {
 	log("mode Gate keeper enabled");
 }
 
-void ScavTrap::log(std::string const &str)
+void ScavTrap::log(std::string const &str) const
 {
 	ft_putstr("ScavTrap " + _name + " " + str);
 }
