@@ -12,14 +12,14 @@ public:
 	{
 		virtual const char* what() const throw()
 		{
-			return ("grade too high");
+			return ("!exception: grade too high");
 		}
 	};
-	class GradeTooLowException
+	class GradeTooLowException : public std::exception
 	{
 		virtual const char* what() const throw()
 		{
-			return ("grade too low");
+			return ("!exception: grade too low");
 		}
 	};
 //func
@@ -40,7 +40,7 @@ private:
 	std::string const _name;
 	int _grade;
 
-	void checkGrade(int const grade) throw();
+	void checkGrade(int const grade) const;
 	void setGrade(int const grade);
 	Bureaucrat(void);
 };
