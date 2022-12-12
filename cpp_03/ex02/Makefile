@@ -3,7 +3,7 @@ CFLAGS := -Wall -Werror -Wextra -std=c++98
 
 INC := -I./
 
-SRC := main.cpp ClapTrap.cpp ft_string.cpp ft_string.cpp ScavTrap.cpp
+SRC := main.cpp ClapTrap.cpp ft_string.cpp ft_string.cpp ScavTrap.cpp FragTrap.cpp
 OBJ := $(SRC:.cpp=.o)
 
 NAME := a.out

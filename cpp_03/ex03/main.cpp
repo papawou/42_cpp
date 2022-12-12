@@ -29,8 +29,6 @@ int main()
 
 		std::cout << "\033[34mTesting\033[0m" << std::endl;
 		a.attack("CloneTrap");
-		// for (int i = 0; i < 50; i++)
-		// 	a.attack("CloneTrap");
 		a.beRepaired(22);
 		a.takeDamage(21);
 		a.beRepaired(22);
