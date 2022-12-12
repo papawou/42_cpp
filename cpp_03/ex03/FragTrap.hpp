@@ -4,7 +4,7 @@
 #include "ClapTrap.hpp"
 #include <string>
 
-class FragTrap : public ClapTrap
+class FragTrap : public virtual ClapTrap
 {
 public:
 	void highFivesGuys(void) const;
@@ -14,7 +14,7 @@ public:
 //colpien
 	FragTrap(void);
 	FragTrap(FragTrap const &);
-	~FragTrap(void);
+	virtual ~FragTrap(void);
 	FragTrap &operator=(FragTrap const &);
 private:
 	void log(std::string const &str) const;

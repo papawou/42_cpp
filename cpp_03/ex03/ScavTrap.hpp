@@ -4,7 +4,7 @@
 #include "ClapTrap.hpp"
 #include <string>
 
-class ScavTrap : public ClapTrap
+class ScavTrap : public virtual ClapTrap
 {
 public:
 	void guardGate(void) const;
@@ -15,7 +15,7 @@ public:
 //colpien
 	ScavTrap(void);
 	ScavTrap(ScavTrap const &);
-	~ScavTrap(void);
+	virtual ~ScavTrap(void);
 	ScavTrap &operator=(ScavTrap const &);
 private:
 	void log(std::string const &str) const;
