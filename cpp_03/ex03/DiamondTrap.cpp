@@ -4,19 +4,17 @@
 #include <string>
 #include <iostream>
 
-DiamondTrap::DiamondTrap(void) : ClapTrap((std::string)"defaultDiamond" + "_clap_name"), FragTrap(), ScavTrap()
+DiamondTrap::DiamondTrap(void) : ClapTrap((std::string)"defaultDiamond" + "_clap_name", 100, 50, 30), FragTrap(), ScavTrap()
 {
 	_name = "defaultDiamond";
-	_hit_points = 100;
-	_energy_points = 50;
-	_attack_damage = 30;
 }
 
-DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), FragTrap(), ScavTrap(), _name(name)
+DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name", 100, 50, 30), FragTrap(), ScavTrap(), _name(name)
 {
-	_hit_points = 100;
-	_energy_points = 50;
-	_attack_damage = 30;
+}
+
+DiamondTrap::DiamondTrap(DiamondTrap const &d) : ClapTrap(d), FragTrap(d), ScavTrap(d), _name(d._name)
+{
 }
 
 void DiamondTrap::whoAmI(void) const

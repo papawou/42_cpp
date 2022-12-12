@@ -73,7 +73,10 @@ void ClapTrap::beRepaired(unsigned int amount)
 }
 
 //protected
-ClapTrap::ClapTrap(std::string name, int hit_points, int energy_points, int attack_damage) : _name(name), _hit_points(hit_points), _energy_points(energy_points), _attack_damage(attack_damage){}
+ClapTrap::ClapTrap(std::string name, int hit_points, int energy_points, int attack_damage) : _name(name), _hit_points(hit_points), _energy_points(energy_points), _attack_damage(attack_damage)
+{
+	log("constructor");
+}
 
 //private
 void ClapTrap::log(std::string const &str) const
