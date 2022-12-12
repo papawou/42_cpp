@@ -12,12 +12,12 @@ void	Cat::log(std::string const &str) const
 }
 
 //Colpien
-Cat::Cat(void) : Animal("Cat")
+Cat::Cat(void) : Animal("Cat"), brain(new Brain())
 {
 	log("constructor");
 }
 
-Cat::Cat(Cat const &cat) : Animal(cat)
+Cat::Cat(Cat const &cat) : Animal(cat), brain(new Brain(*cat.brain))
 {
 	log("copy constructor");
 }
@@ -28,6 +28,8 @@ Cat &Cat::operator=(Cat const &rhs)
 	if (this != &rhs)
 	{
 		this->type = rhs.type;
+		delete this->brain;
+		this->brain = new Brain(*rhs.brain);
 	}
 	return (*this);
 }
@@ -35,4 +37,5 @@ Cat &Cat::operator=(Cat const &rhs)
 Cat::~Cat(void)
 {
 	log("destructor");
+	delete brain;
 }

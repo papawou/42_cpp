@@ -8,7 +8,6 @@ class Animal
 public:
 	virtual void makeSound(void) const;
 	std::string getType(void) const;
-	
 //Colpien
 	Animal(void);
 	Animal(Animal const &animal);

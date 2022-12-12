@@ -1,9 +1,9 @@
 CC := c++
-CFLAGS := -Wall -Werror -Wextra -std=c++98
+CFLAGS := -Wall -Werror -Wextra -std=c++98 -g
 
 INC := -I./
 
-SRC := main.cpp Animal.cpp Dog.cpp Cat.cpp WrongCat.cpp WrongAnimal.cpp
+SRC := main.cpp Animal.cpp Dog.cpp Cat.cpp Brain.cpp
 
 OBJ := $(SRC:.cpp=.o)
 
