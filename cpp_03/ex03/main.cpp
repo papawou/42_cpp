@@ -7,4 +7,8 @@
 int main(void)
 {
 	DiamondTrap dt("dt");
+
+	ClapTrap *ptr_dt = &dt;
+
+	
 }
