@@ -1,13 +1,13 @@
 #include "Form.hpp"
 
-void	Form::beSigned(Bureaucrat const &signor) throw()
+void	Form::beSigned(Bureaucrat const &signor)
 {
 	if (signor.getGrade() > _grade_sign)
 		throw Form::GradeTooLowException();
 	_sign = true;
 }
 
-void	Form::execute(Bureaucrat const &executor) const throw()
+void	Form::execute(Bureaucrat const &executor) const
 {
 	if (executor.getGrade() > _grade_exec)
 		throw Form::GradeTooLowException();
@@ -43,7 +43,7 @@ std::string	Form::getTarget(void) const
 }
 
 //private
-void	Form::checkGrade(int const grade) const throw()
+void	Form::checkGrade(int const grade) const
 {
 	if (grade < 1)
 		throw Form::GradeTooHighException();
@@ -52,7 +52,7 @@ void	Form::checkGrade(int const grade) const throw()
 }
 
 Form::Form(std::string const &name, int const grade_sign, int const grade_exec, std::string const &target)
-	: _target(target), _name(name), _sign(false), _grade_sign(grade_sign), _grade_exec(grade_exec)
+	: _name(name), _sign(false), _grade_sign(grade_sign), _grade_exec(grade_exec), _target(target)
 {
 	checkGrade(_grade_exec);
 	checkGrade(_grade_sign);
@@ -60,7 +60,7 @@ Form::Form(std::string const &name, int const grade_sign, int const grade_exec, 
 
 //colpien
 Form::Form(void) : _sign(false), _grade_sign(0), _grade_exec(0){}
-Form::Form(Form const &form) : _target(form._target), _name(form._name), _grade_sign(form._grade_sign), _grade_exec(form._grade_exec){}
+Form::Form(Form const &form) : _name(form._name), _grade_sign(form._grade_sign), _grade_exec(form._grade_exec), _target(form._target){}
 Form &Form::operator=(Form const &form)
 {
 	if (this != &form)

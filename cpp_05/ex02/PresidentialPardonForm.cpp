@@ -3,7 +3,7 @@
 
 void PresidentialPardonForm::execute_action(void) const
 {
-	std::cout << "T'es pardonne " << _target << " by Zaphod Beeblerox" << std::endl;
+	std::cout << "T'es pardonne " << getTarget() << " by Zaphod Beeblerox" << std::endl;
 }
 
 PresidentialPardonForm::PresidentialPardonForm(std::string const &target) : Form("PresidentialPardonForm", 25, 5, target){}

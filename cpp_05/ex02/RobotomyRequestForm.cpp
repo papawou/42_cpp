@@ -6,9 +6,9 @@ void RobotomyRequestForm::execute_action(void) const
 {
 	std::cout << "Bzz bzz (c'est une perceuse)" << std::endl;
 	if (rand() % 2)
-		std::cout << _target << " has been robotomized successfully" << std::endl;
+		std::cout << getTarget() << " has been robotomized successfully" << std::endl;
 	else
-		std::cout << "Failed operation ! " << _target << std::endl;
+		std::cout << "Failed operation ! " << getTarget() << std::endl;
 }
 
 RobotomyRequestForm::RobotomyRequestForm(std::string const &target)

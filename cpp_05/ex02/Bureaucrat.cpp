@@ -31,6 +31,7 @@ void	Bureaucrat::executeForm(Form const &form) const
 	try
 	{
 		form.execute(*this);
+		std::cout << _name << " executed " << form.getName() << std::endl;
 	}
 	catch (std::exception const &e)
 	{
@@ -45,7 +46,7 @@ void	Bureaucrat::setGrade(int const grade)
 	_grade = grade;
 }
 
-void	Bureaucrat::checkGrade(int const grade) const throw()
+void	Bureaucrat::checkGrade(int const grade) const
 {
 	if (grade < 1)
 		throw Bureaucrat::GradeTooHighException();

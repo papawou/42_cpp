@@ -5,18 +5,18 @@
 void ShrubberyCreationForm::execute_action(void) const
 {
 	std::string tree((std::string)
-		"       _-_" +
-		"    /~~   ~~\\" +
-		" /~~         ~~\\" +
-		"{               }" +
-		" \\  _-     -_  /" +
-		"   ~  \\ //  ~" +
-		"_- -   | | _- _" +
-		"  _ -  | |   -_" +
-		"      // \\"
+		"       _-_\n" +
+		"    /~~   ~~\\\n" +
+		" /~~         ~~\\\n" +
+		"{               }\n" +
+		" \\  _-     -_  /\n" +
+		"   ~  \\ //  ~\n" +
+		"_- -   | | _- _\n" +
+		"  _ -  | |   -_\n" +
+		"      // \\\n"
 	);
 
-	std::ofstream ofs("_shruberry");
+	std::ofstream ofs(getTarget() + "_shruberry");
 	if (!ofs.good())
 		std::cerr << "ofs open error" << std::endl;
 	ofs << tree;
