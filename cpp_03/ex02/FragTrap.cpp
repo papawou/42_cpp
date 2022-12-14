@@ -38,7 +38,7 @@ FragTrap::~FragTrap(void)
 //METHODS
 void FragTrap::highFivesGuys(void) const
 {
-	ft_putstr("high fives ?");
+	log("high fives ?");
 }
 
 void FragTrap::log(std::string const &str) const
