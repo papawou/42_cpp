@@ -17,10 +17,7 @@ public:
 public:
 	class FormNotFound : public std::exception
 	{
-		virtual const char* what() const throw()
-		{
-			return ("!exception: form not found");
-		}
+		virtual const char* what() const throw();
 	};
 };
 

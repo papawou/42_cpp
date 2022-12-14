@@ -3,7 +3,7 @@ CFLAGS := -Wall -Werror -Wextra -std=c++98 -g
 
 INC := -I./
 
-SRC := main.cpp Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+SRC := main.cpp Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp Intern.cpp
 
 OBJ := $(SRC:.cpp=.o)
 

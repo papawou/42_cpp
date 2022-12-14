@@ -3,43 +3,38 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 #include <unistd.h>
 
 int main()
 {
 	std::cout << "\n\n";
 
-	Bureaucrat	Judas("Judas", 1);
-
-	Form					*Buisson = new ShrubberyCreationForm("buisson");
-	ShrubberyCreationForm	Arbres("Garden");
-	RobotomyRequestForm		robot("Jean");
+	Bureaucrat				Judas("Judas", 1);
+	Intern					slave;
 	PresidentialPardonForm	pres("Judas Iscariot");
-//	Form					NotPossible;
+	Form					*kew;
+	Form					*aha;
 
-//	Judas.signForm(Arbres);
-	Judas.executeForm(Arbres);
-	Judas.signForm(Arbres);
-	Judas.executeForm(Arbres);
-	Judas.signForm(robot);
-
-	std::cout << "\n\n";
-	
-	for (int i = 0; i < 10; i++)
-	{
-		sleep(1);
-		Judas.executeForm(robot);
-	}
 
 	Judas.signForm(pres);
 	Judas.executeForm(pres);
 
-	std::cout << "\n\n";
-
-	std::cout << Judas << std::endl;
-	std::cout << *Buisson << std::endl;
-	std::cout << Arbres << std::endl;
-
-	delete (Buisson);
+	kew = slave.makeForm("RobotomyRequestForm", "Tamer");
+	if (kew != NULL)
+	{
+		std::cout << *kew << std::endl;
+		Judas.signForm(*kew);
+		Judas.executeForm(*kew);
+		delete (kew);
+	}
+	aha = slave.makeForm("NotAValidForm", "himself");
+	if (aha != NULL)
+	{
+		std::cout << *aha << std::endl;
+		Judas.signForm(*aha);
+		Judas.executeForm(*aha);
+		delete aha;
+	}
 	return (0);
 }

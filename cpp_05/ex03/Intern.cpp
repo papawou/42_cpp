@@ -7,9 +7,10 @@
 
 Form*	Intern::makeForm(std::string const &form, std::string const &target) const
 {
-	static std::string const forms[3] = {"robotomy request", "presidential pardon", "shrubbery creation"};
-	int n = -1;
+	std::string const forms[3] = {"robotomy request", "presidential pardon", "shrubbery creation"};
+	Form *ret;
 
+	int n = -1;
 	for(int i = 0; i < 3; ++i)
 		if (forms[i] == form)
 		{
@@ -22,11 +23,11 @@ Form*	Intern::makeForm(std::string const &form, std::string const &target) const
 		switch (n)
 		{
 			case 0:
-				return new RobotomyRequestForm(target);
+				ret = new RobotomyRequestForm(target);
 			case 1:
-				return new PresidentialPardonForm(target);
+				ret = new PresidentialPardonForm(target);
 			case 2:
-				return new ShrubberyCreationForm(target);
+				ret = new ShrubberyCreationForm(target);
 			default:
 				throw Intern::FormNotFound();
 		}
@@ -36,6 +37,8 @@ Form*	Intern::makeForm(std::string const &form, std::string const &target) const
 		std::cerr << e.what() << std::endl;
 		return (NULL);
 	}
+	std::cout << "Intern creates " << ret->getName() << std::endl; 
+	return (ret);
 }
 
 
@@ -45,6 +48,7 @@ Intern::Intern(void)
 
 Intern::Intern(Intern const &i)
 {
+	(void) i;
 }
 
 Intern::~Intern(void)
@@ -55,4 +59,9 @@ Intern &Intern::operator=(Intern const &rhs)
 {
 	(void) rhs;
 	return (*this);
+}
+
+const char* Intern::FormNotFound::what() const throw()
+{
+	return ("!exception: form not found");
 }
