@@ -12,16 +12,16 @@ NAME := convert
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-        $(CC) $(CFLAGS) $(INC) $^ -o $@
+		$(CC) $(CFLAGS) $(INC) $^ -o $@
 
 %.o : %.cpp
-        $(CC) $(CFLAGS) $(INC) -c $< -o $@
+		$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean :
-        $(RM) $(OBJ)
+		$(RM) $(OBJ)
 
 fclean : clean
-        $(RM) $(NAME)
+		$(RM) $(NAME)
 
 re : fclean clean all
 

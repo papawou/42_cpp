@@ -42,24 +42,30 @@ bool	Conversion::checkFloat(void) const
 	size_t pos;
 
 	pos = 0;
-
 	if (_str[pos] == '+' || _str[pos] == '-')
 		++pos;
+	
 	for(; pos < _str.length(); ++pos)
 		if (!isdigit(_str[pos]))
 			break ;
-	
-	if (pos == 0) //no digits
+	if (pos == 0 && _str[0] != '.')
 		return (false);
-	if (_str.find_first_of("."))
-		return (false);	
-	size_t	e_pos;
-	if (pt_pos == std::string::npos)
-	{
-		e_pos = _str.find_first_of("e");
-		if (e_pos)
-			
-	}
+
+	size_t pt_pos = _str.find_first_of('.');
+	if (pt_pos == pos + 1 || pt_pos == 0)
+		++pos;
+	else if (pt_pos != std::string::npos)
+		return (false);
+
+	size_t e_pos = _str.find_first_of('e');
+	if (e_pos =e_pos= pos + 1)
+		++pos;
+	else if (e_pos == std::string::npos && pt_pos == std::string::npos )
+		return (false);
+	
+	
+	
+	return (true);
 }
 
 Conversion::Conversion(std::string const &str) : _str(str)
