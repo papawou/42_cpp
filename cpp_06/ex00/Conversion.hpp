@@ -28,9 +28,6 @@ private:
 	double	_double;
 
 	e_type	checkType(void) const;
-	bool	checkChar(void) const;
-	bool	checkInt(void) const;
-	bool	checkFloat(void) const;
 
 	Conversion(void);
 };

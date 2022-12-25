@@ -1,78 +1,47 @@
 #include "Conversion.hpp"
 #include <cctype>
 
-Conversion::e_type	Conversion::checkType(void)
+Conversion::e_type	Conversion::checkType(void) const
 {
-	if (_str.length() == 0)
-		return Conversion::NO_TYPE;
-	if (checkChar())
-		return Conversion::CHAR_TYPE;
-	if (checkInt())
-		return Conversion::INT_TYPE;
-	if (checkFloat())
-		return Conversion::FLOAT_TYPE;
-	if (checkDouble())
-		return Conversion::DOUBLE_TYPE;
-}
-
-bool	Conversion::checkChar(void)
-{
-	if (_str.length() != 1)
-		return false;
-	return (isprint(_str[0]));
-}
-
-bool	Conversion::checkInt(void)
-{
-	size_t pos;
-
-	pos = 0;
-	if (_str[pos] == '+' || _str[pos] == '-')
-		++pos;
-	for(; pos < _str.length(); ++pos)
-	{
-		if (!isdigit(_str[pos]))
-			return (false);
-	}
-	return (true);
-}
-
-bool	Conversion::checkFloat(void) const
-{
-	size_t pos;
+	size_t	pos;
+	size_t	tmp_pos;
+	
+	if (_str.length() == 1 && isprint(_str[0]) && !isdigit(_str[0]))
+		return (Conversion::CHAR_TYPE);
 
 	pos = 0;
 	if (_str[pos] == '+' || _str[pos] == '-')
 		++pos;
 	
-	for(; pos < _str.length(); ++pos)
+	tmp_pos = pos;
+	for (; pos < _str.length(); ++pos)
 		if (!isdigit(_str[pos]))
 			break ;
-	if (pos == 0 && _str[0] != '.')
-		return (false);
-
-	size_t pt_pos = _str.find_first_of('.');
-	if (pt_pos == pos + 1 || pt_pos == 0)
-		++pos;
-	else if (pt_pos != std::string::npos)
-		return (false);
-
-	size_t e_pos = _str.find_first_of('e');
-	if (e_pos =e_pos= pos + 1)
-		++pos;
-	else if (e_pos == std::string::npos && pt_pos == std::string::npos )
-		return (false);
+	if (tmp_pos != pos && _str[pos] == '\0')
+		return (Conversion::INT_TYPE);
 	
+	if (_str[pos] != '.')
+		return (Conversion::NO_TYPE);
 	
+	tmp_pos = pos;
+	for (; pos < _str.length(); ++pos)
+		if (!isdigit(_str[pos]))
+			break ;
 	
-	return (true);
+	if (tmp_pos != pos && _str[pos] == '\0')
+		return (Conversion::DOUBLE_TYPE);
+	if (_str[pos] == 'f' && _str[pos + 1] == '\0')
+		return (Conversion::FLOAT_TYPE);
+	return (Conversion::NO_TYPE);
 }
 
-Conversion::Conversion(std::string const &str) : _str(str)
+Conversion::Conversion(std::string const &str) : _str(str), _type(checkType())
 {
 }
 
-Conversion::Conversion(Conversion const &sc) : _str(sc._str){}
+Conversion::Conversion(Conversion const &sc) : _str(sc._str), _type(sc._type), _char(sc._char), _int(sc._int), _float(sc._float), _double(sc._double)
+{
+}
 
 Conversion::Conversion(void){}
 
@@ -82,6 +51,12 @@ Conversion&	Conversion::operator=(Conversion const &rhs)
 {
 	if (this != &rhs)
 	{
+		this->_type = rhs._type;
+		this->_char = rhs._char;
+		this->_int = rhs._int;
+		this->_double = rhs._double;
+		this->_float = rhs._float;
+		//this->_str = rhs._str;
 	}
 	return (*this);
 }
