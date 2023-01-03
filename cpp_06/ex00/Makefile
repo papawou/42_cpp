@@ -7,7 +7,7 @@ SRC := main.cpp Conversion.cpp
 
 OBJ := $(SRC:.cpp=.o)
 
-NAME := convert
+NAME := convert.out
 
 all : $(NAME)
 

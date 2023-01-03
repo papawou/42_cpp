@@ -59,6 +59,8 @@
 		"unordered_map": "cpp",
 		"utility": "cpp",
 		"vector": "cpp",
-		"stringcast.hpp": "c"
+		"stringcast.hpp": "c",
+		"iomanip": "cpp",
+		"iostream": "cpp"
 	}
 }

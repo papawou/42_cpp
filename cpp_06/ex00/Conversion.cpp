@@ -21,21 +21,26 @@ Conversion::e_type	Conversion::checkType(void) const
 		return NAN_TYPE;
 	if (_str.length() == 1 && !isdigit(_str[0])) 
 		return (Conversion::CHAR_TYPE);
+	
 	pos = 0;
 	if (_str[pos] == '+' || _str[pos] == '-')
 		++pos;
+	
 	tmp_pos = pos;
-	for (; pos < _str.length(); ++pos)
+	for (; pos < _str.length(); pos++)
 		if (!isdigit(_str[pos]))
 			break ;
+	
 	if (tmp_pos != pos && _str[pos] == '\0')
 		return (Conversion::INT_TYPE);
-	if (_str[pos] != '.')
+	if (tmp_pos == pos || _str[pos] != '.')
 		return (Conversion::NO_TYPE);
+	++pos;
 	tmp_pos = pos;
-	for (; pos < _str.length(); ++pos)
+	for (; pos < _str.length(); pos++)
 		if (!isdigit(_str[pos]))
 			break ;
+	
 	if (tmp_pos != pos && _str[pos] == '\0')
 		return (Conversion::DOUBLE_TYPE);
 	if (_str[pos] == 'f' && _str[pos + 1] == '\0')
@@ -45,7 +50,7 @@ Conversion::e_type	Conversion::checkType(void) const
 
 void	Conversion::castType(void)
 {
-	_type = checkType();
+	std::cout << _type << std::endl;
 	void (Conversion::* const funcs[4])(void) = {&Conversion::castChar, &Conversion::castInt, &Conversion::castFloat, &Conversion::castDouble};
 	
 	if (_type < 4)
@@ -100,7 +105,7 @@ void	Conversion::castFloat(void)
 	else if (impossible)
 		std::cout << "impossible" << std::endl;
 	else
-		std::cout << _float << std::endl;
+		std::cout << std::setprecision(1) << std::fixed << _float << 'f' << std::endl;
 }
 
 void	Conversion::castDouble(void)
@@ -139,7 +144,7 @@ void	Conversion::castDouble(void)
 	else if (impossible)
 		std::cout << "impossible" << std::endl;
 	else
-		std::cout << _double << std::endl;
+		std::cout << std::setprecision(1) << std::fixed << _double << std::endl;
 }
 
 void	Conversion::castChar(void)
