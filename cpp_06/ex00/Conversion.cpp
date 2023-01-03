@@ -50,7 +50,6 @@ Conversion::e_type	Conversion::checkType(void) const
 
 void	Conversion::castType(void)
 {
-	std::cout << _type << std::endl;
 	void (Conversion::* const funcs[4])(void) = {&Conversion::castChar, &Conversion::castInt, &Conversion::castFloat, &Conversion::castDouble};
 	
 	if (_type < 4)
