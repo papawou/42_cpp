@@ -47,6 +47,7 @@ Array<T> &Array<T>::operator=(Array<T> const &rhs)
 	{
 		delete [] _data;
 		_size = rhs._size;
+		_data = new T[_size];
 		for(int i = 0; i < _size; i++)
 			_data[i] = rhs._data[i];	
 	}

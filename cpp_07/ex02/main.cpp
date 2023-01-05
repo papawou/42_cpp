@@ -3,6 +3,8 @@
 
 int	main(void)
 {
-	Array<int> arr(5);
-	Array<int> arr2(arr);
+	Array<float> arr(10);
+	Array<float> arr2(10);
+
+	arr = arr2;
 }
