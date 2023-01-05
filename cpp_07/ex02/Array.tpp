@@ -2,7 +2,7 @@
 # define ARRAY_TPP
 
 template<typename T>
-int	Array<T>::size(void) const
+unsigned int	Array<T>::size(void) const
 {
 	return _size;
 }
@@ -36,7 +36,7 @@ Array<T>::Array(void) : _size(0), _data(new T[_size]())
 template<typename T>
 Array<T>::Array(Array<T> const &copy) : _size(copy._size), _data(new T[_size]())
 {
-	for(int i = 0; i < _size; i++)
+	for (unsigned int i = 0; i < _size; i++)
 		_data[i] = copy._data[i];
 }
 
@@ -48,7 +48,7 @@ Array<T> &Array<T>::operator=(Array<T> const &rhs)
 		delete [] _data;
 		_size = rhs._size;
 		_data = new T[_size];
-		for(int i = 0; i < _size; i++)
+		for (unsigned int i = 0; i < _size; i++)
 			_data[i] = rhs._data[i];	
 	}
 	return (*this);

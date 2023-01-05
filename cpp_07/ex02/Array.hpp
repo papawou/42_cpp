@@ -5,7 +5,7 @@ template<typename T>
 class Array
 {
 public:
-	int size(void) const;
+	unsigned int	size(void) const;
 
 	Array<T>(unsigned int n);
 //operator
@@ -17,7 +17,7 @@ public:
 	Array<T> &operator=(Array<T> const &);
 	virtual ~Array<T>(void);
 private:
-	int				_size;
+	unsigned int				_size;
 	T					*_data;
 };
 
