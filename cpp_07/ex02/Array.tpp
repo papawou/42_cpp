@@ -8,7 +8,7 @@ unsigned int	Array<T>::size(void) const
 }
 
 template<typename T>
-T&	Array<T>::operator[](int idx)
+T&	Array<T>::operator[](unsigned int idx)
 {
 	if (idx < 0 || idx >= _size)
 		throw std::exception();
@@ -16,7 +16,7 @@ T&	Array<T>::operator[](int idx)
 }
 
 template<typename T>
-T	Array<T>::operator[](int idx) const
+T	Array<T>::operator[](unsigned int idx) const
 {
 	if (idx < 0 || idx >= _size)
 		throw std::exception();

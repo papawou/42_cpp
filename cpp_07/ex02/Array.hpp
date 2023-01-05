@@ -9,8 +9,8 @@ public:
 
 	Array<T>(unsigned int n);
 //operator
-	T& operator[](int idx);
-	T	operator[](int idx) const;
+	T& operator[](unsigned int idx);
+	T	operator[](unsigned int idx) const;
 //colpien
 	Array<T>(void);
 	Array<T>(Array<T> const &);
@@ -20,6 +20,14 @@ private:
 	unsigned int				_size;
 	T					*_data;
 };
+
+template<typename T>
+std::ostream& operator<<(std::ostream &os, Array<T>& rhs)
+{
+	for(unsigned int i = 0; i < rhs.size(); i++)
+		os << rhs[i] << ", ";
+	return (os);
+}
 
 #include "Array.tpp"
 
