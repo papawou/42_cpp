@@ -14,11 +14,11 @@ T const & min(T const &x, T const &y)
 }
 
 template< typename T >
-void	swap(T *a, T *b)
+void	swap(T &a, T &b)
 {
-	T tmp = *a;
-	*a = *b;
-	*b = tmp;
+	T tmp = a;
+	a = b;
+	b = tmp;
 }
 
 #endif
