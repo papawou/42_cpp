@@ -1,31 +1,29 @@
 #include <exception>
 #include <algorithm>
 #include "Span.hpp"
+#include <iostream>
 
 void	Span::addNumber(int nb)
 {
-	if (_v.size() < _v.capacity())
+	if (_v.size() > _v.capacity())
 		throw std::exception();
 	_v.push_back(nb);
 }
 
-int	Span::shortestSpan(void) const
+unsigned int	Span::shortestSpan(void) const
 {
-	unsigned int res = std::numeric_limits<unsigned int>::max();
 	if (_v.size() < 2)
 		throw std::exception();
 	std::vector<int> sorted = _v;
 	std::sort(sorted.begin(), sorted.end());
-	for (std::vector<int>::iterator it = sorted.begin(); it < sorted.end(); it++)
-	{
-		if (res > ((*it + 1) - (*it)))
-		{
-			
-		}
-	}
+	unsigned int res = (sorted[1] - sorted[0]);
+	for (std::vector<int>::iterator it = sorted.begin() + 1; it < (sorted.end() - 1); it++)
+		if (res > (unsigned int)(*(it + 1) - (*it)))
+			res = (*(it + 1) - (*it));
+	return (res);
 }
 
-int	Span::longestSpan(void) const
+unsigned int	Span::longestSpan(void) const
 {
 	if (this->_v.size() < 2)
 		throw std::exception();
@@ -54,5 +52,9 @@ Span &Span::operator=(const Span & rhs)
 }
 
 Span::Span(void)
+{
+}
+
+Span::~Span(void)
 {
 }

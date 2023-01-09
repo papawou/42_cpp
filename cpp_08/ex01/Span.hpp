@@ -7,8 +7,8 @@ class Span
 {
 public:
 	void addNumber(int nb);
-	int	shortestSpan(void) const;
-	int	longestSpan(void) const;
+	unsigned int	shortestSpan(void) const;
+	unsigned int	longestSpan(void) const;
 
 	Span(unsigned int n);
 	//colpien
