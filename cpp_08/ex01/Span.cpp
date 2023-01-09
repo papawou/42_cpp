@@ -16,7 +16,7 @@ unsigned int	Span::shortestSpan(void) const
 		throw std::exception();
 	std::vector<int> sorted = _v;
 	std::sort(sorted.begin(), sorted.end());
-	unsigned int res = (sorted[1] - sorted[0]);
+	unsigned int res = sorted[1] - sorted[0];
 	for (std::vector<int>::iterator it = sorted.begin() + 1; it < (sorted.end() - 1); it++)
 		if (res > (unsigned int)(*(it + 1) - (*it)))
 			res = (*(it + 1) - (*it));
