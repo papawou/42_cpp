@@ -10,6 +10,13 @@ void	Span::addNumber(int nb)
 	_v.push_back(nb);
 }
 
+void	Span::insert(std::vector<int>::iterator start, std::vector<int>::iterator end)
+{
+	if (((end - start) + _v.size()) > _v.capacity())
+		throw std::exception();
+	_v.insert(_v.end(), start, end);
+}
+
 unsigned int	Span::shortestSpan(void) const
 {
 	if (_v.size() < 2)
