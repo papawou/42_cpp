@@ -1,7 +1,7 @@
 #include <exception>
 #include <algorithm>
-#include "Span.hpp"
 #include <iostream>
+#include "Span.hpp"
 
 void	Span::addNumber(int nb)
 {
