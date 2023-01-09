@@ -11,14 +11,23 @@ void	Span::addNumber(int nb)
 
 int	Span::shortestSpan(void) const
 {
-	if (this->_v.size() <= 1)
+	unsigned int res = std::numeric_limits<unsigned int>::max();
+	if (_v.size() < 2)
 		throw std::exception();
-	
+	std::vector<int> sorted = _v;
+	std::sort(sorted.begin(), sorted.end());
+	for (std::vector<int>::iterator it = sorted.begin(); it < sorted.end(); it++)
+	{
+		if (res > ((*it + 1) - (*it)))
+		{
+			
+		}
+	}
 }
 
 int	Span::longestSpan(void) const
 {
-	if (this->_v.size() <= 1)
+	if (this->_v.size() < 2)
 		throw std::exception();
 	return (*std::max_element(std::begin(_v), std::end(_v)) - *std::min_element(std::begin(_v), std::end(_v)));
 }
