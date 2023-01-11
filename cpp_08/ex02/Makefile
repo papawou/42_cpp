@@ -3,7 +3,7 @@ CFLAGS := -Wall -Werror -Wextra -std=c++98 -g
 
 INC := -I./
 
-SRC := main.cpp Span.cpp
+SRC := main.cpp
 
 OBJ := $(SRC:.cpp=.o)
 
