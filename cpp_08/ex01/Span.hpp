@@ -16,7 +16,7 @@ public:
 	//colpien
 	Span(const Span &);
 	Span &operator=(const Span &);
-	int	&operator[](const size_t index) const;
+	int	const &operator[](const size_t index) const;
 	int	&operator[](const size_t index);
 	virtual ~Span(void);
 private:

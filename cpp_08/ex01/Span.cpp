@@ -70,7 +70,7 @@ int &Span::operator[](size_t index)
 	throw std::exception();
 }
 
-int &Span::operator[](size_t index) const
+int const &Span::operator[](size_t index) const
 {
 	if (index < _v.size())
 		return _v[index];
@@ -87,9 +87,10 @@ Span::~Span(void)
 
 std::ostream &operator<<(std::ostream &os, Span const &sp)
 {
-	for(int i = 0; i < sp.size(); i++)
+	for(size_t i = 0; i < sp.size(); i++)
 	{
 		os << sp[i] << ", ";
 		os << std::endl;
 	}
+	return (os);
 }

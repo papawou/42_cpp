@@ -10,5 +10,6 @@ int main()
 	v.push_back(3);
 
 	sp.insert(v.begin(), v.end());
+	std::cout << sp << std::endl;
 	return (0);
 }
