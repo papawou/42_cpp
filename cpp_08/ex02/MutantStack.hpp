@@ -3,15 +3,15 @@
 
 #include <stack>
 
-template<class T>
-class MutantStack : public std::stack<T>
+template<class T, class Container = std::deque<T> >
+class MutantStack : public std::stack<T, Container>
 {
 public:
 	//iterators
-	typedef typename std::stack<T>::container_type::iterator	iterator;
-	typedef typename std::stack<T>::container_type::const_iterator	const_iterator;
-	typedef typename std::stack<T>::container_type::const_reverse_iterator	const_reverse_iterator;
-	typedef typename std::stack<T>::container_type::reverse_iterator	reverse_iterator;
+	typedef typename Container::iterator	iterator;
+	typedef typename Container::const_iterator	const_iterator;
+	typedef typename Container::const_reverse_iterator	const_reverse_iterator;
+	typedef typename Container::reverse_iterator	reverse_iterator;
 
 	iterator	begin(void);
 	const_iterator	begin(void) const;
@@ -23,9 +23,9 @@ public:
 	reverse_iterator	rend(void);
 	const_reverse_iterator rend(void) const;
 
-	MutantStack<T>(void);
-	MutantStack<T>(MutantStack<T> const &);
-	MutantStack<T> &operator=(MutantStack<T> const &);
+	MutantStack<T, Container>(void);
+	MutantStack<T, Container>(MutantStack<T, Container> const &);
+	MutantStack<T, Container> &operator=(MutantStack<T, Container> const &);
 	virtual ~MutantStack(void);
 };
 

@@ -1,96 +1,38 @@
-#include <exception>
-#include <algorithm>
 #include <iostream>
 #include "Span.hpp"
 
-void	Span::addNumber(int nb)
+int main(void)
 {
-	if (_v.size() > _v.capacity())
-		throw std::exception();
-	_v.push_back(nb);
-}
 
-size_t	Span::size(void) const
-{
-	return _v.size();
-}
+	try	{
+		Span sp = Span(5);
+		sp.addNumber(5);
+		sp.addNumber(3);
+		sp.addNumber(17);
+		sp.addNumber(9);
+		sp.addNumber(11);
 
-void	Span::insert(std::vector<int>::iterator start, std::vector<int>::iterator end)
-{
-	if (((end - start) + _v.size()) > _v.capacity())
-		throw std::exception();
-	_v.insert(_v.end(), start, end);
-}
+		sp.print();
 
-unsigned int	Span::shortestSpan(void) const
-{
-	if (_v.size() < 2)
-		throw std::exception();
-	std::vector<int> sorted = _v;
-	std::sort(sorted.begin(), sorted.end());
-	unsigned int res = sorted[1] - sorted[0];
-	for (std::vector<int>::iterator it = sorted.begin() + 1; it < (sorted.end() - 1); it++)
-		if (res > (unsigned int)(*(it + 1) - (*it)))
-			res = (*(it + 1) - (*it));
-	return (res);
-}
+		std::cout << sp.shortestSpan() << std::endl;
+		std::cout << sp.longestSpan() << std::endl;
 
-unsigned int	Span::longestSpan(void) const
-{
-	if (this->_v.size() < 2)
-		throw std::exception();
-	return (*std::max_element(std::begin(_v), std::end(_v)) - *std::min_element(std::begin(_v), std::end(_v)));
-}
+		// test with a big vector
 
-Span::Span(unsigned int n)
-{
-	_v.reserve(n);
-}
+		Span sp2 = Span(10000);
+		sp2.fillVectorNumber(10000);
+		sp2.print();
 
-Span::Span(const Span & sp)
-{
-	*this = sp;
-}
+		std::cout << sp2.shortestSpan() << std::endl;
+		std::cout << sp2.longestSpan() << std::endl;
 
-Span &Span::operator=(const Span & rhs)
-{
-	if (this == &rhs)
-	{
-		this->_v.clear();
-		this->_v.reserve(rhs._v.capacity());
-		this->_v = rhs._v;
+		std::cout << YELLOW << "---Test exception---" << RESET << std::endl;
+		sp2.addNumber(25);
 	}
-	return (*this);
-}
 
-int &Span::operator[](size_t index)
-{
-	if (index < _v.size())
-		return _v[index];
-	throw std::exception();
-}
+	catch (std::exception &exception) {
 
-int const &Span::operator[](size_t index) const
-{
-	if (index < _v.size())
-		return _v[index];
-	throw std::exception();
-}
-
-Span::Span(void)
-{
-}
-
-Span::~Span(void)
-{
-}
-
-std::ostream &operator<<(std::ostream &os, Span const &sp)
-{
-	for(size_t i = 0; i < sp.size(); i++)
-	{
-		os << sp[i] << ", ";
-		os << std::endl;
+		std::cout << RED << exception.what() << RESET << std::endl;
 	}
-	return (os);
+	return 0;
 }
