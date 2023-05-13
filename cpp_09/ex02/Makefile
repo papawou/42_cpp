@@ -1,11 +1,10 @@
 CC := c++
-CC_FLAGS := -g -Wall -Wextra -Werror -std=c++98 -I./inc
+CC_FLAGS := -g -Wall -Wextra -Werror -std=c++98
 
-SRC := main.cpp
-
+SRC := main.cpp PmergeMe.cpp
 OBJ := $(SRC:.cpp=.o)
 
-NAME := btc
+NAME := PmergeMe
 
 all : $(NAME)
 

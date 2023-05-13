@@ -5,23 +5,11 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "test",
-			"type": "cppdbg",
-			"request": "launch",
-			"program": "${workspaceFolder}/a.out",
-			"args": ["./input_test.csv"],
-			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}",
-			"environment": [],
-			"externalConsole": false,
-			"MIMode": "lldb"
-		},
-		{
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/btc",
-			"args": ["./input.csv"],
+			"program": "${workspaceFolder}/RPN",
+			"args": ["0 0 /"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

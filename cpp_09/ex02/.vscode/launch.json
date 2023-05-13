@@ -5,23 +5,11 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "test",
-			"type": "cppdbg",
-			"request": "launch",
-			"program": "${workspaceFolder}/a.out",
-			"args": ["./input_test.csv"],
-			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}",
-			"environment": [],
-			"externalConsole": false,
-			"MIMode": "lldb"
-		},
-		{
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/btc",
-			"args": ["./input.csv"],
+			"program": "${workspaceFolder}/PmergeMe",
+			"args": ["10 0 9 8 6"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
@@ -29,6 +17,5 @@
 			"MIMode": "lldb",
 			"preLaunchTask": "make"
 		}
-
 	]
 }

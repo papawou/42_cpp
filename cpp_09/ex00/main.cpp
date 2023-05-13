@@ -1,25 +1,43 @@
-#include <string>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <map>
 
-int read_file(std::string const &file_path, std::string &str)
+
+
+
+bool check_valid_date(std::string const &date)
 {
-	std::ifstream ifs(file_path);
-	std::ostringstream ostr;
+	std::istringstream is(date);
+	std::string year;
+	std::string month;
+	std::string day;
 
-	ostr << ifs.rdbuf();
-	if (ostr.fail() || ifs.fail())
+	std::getline(is, year, '-');
+	if (is.fail())
+		throw("valid_date YEAR error");
+	std::getline(is, month, '-');
+	if (is.fail())
+		throw("valid_date MONTH error");
+	std::getline(is, day);
+	if (is.fail())
+		throw("valid_date DAY error");
+	int int_year = stoi(year);
+	int int_month = stoi(month);
+	int int_day = stoi(day);
+
+	if (int_month < 1 || int_month > 12)
+		return false;
+	if (int_day < 1 || int_day > 31)
+		return false;
+	if (int_month == 4 || int_month == 6 || int_month == 9 || int_month == 11)
+		return (int_day <= 30);
+	if (int_month == 2)
 	{
-		ifs.close();
-		return (1);
+		if (((int_year % 4 == 0) && (int_year % 100 != 0)) || (int_year % 400 == 0))
+			return int_day <= 29;
+		else
+			return int_day <= 28;
 	}
-	str = ostr.str();
-	return (0);
+	return true;
 }
 
-// common
 std::string parse_date(std::string const &date)
 {
 	size_t i = 0;
@@ -38,16 +56,14 @@ std::string parse_date(std::string const &date)
 	}
 	if (i != 7 || date[i] != '-')
 		throw("DATE expected month");
-	if (date.substr(5, 2).compare("01") < 0 || date.substr(5, 2).compare("12") > 0)
-		throw("DATE invalid month");
 	++i;
 	for (; isdigit(date[i]); ++i)
 	{
 	}
 	if (i != 10 || date[i] != '\0')
 		throw("DATE expected day");
-	if (date.substr(8, 2).compare("00") <= 0 || date.substr(8, 2).compare("31") > 0) // check feb 30 31
-		throw("DATE invalid day");
+	if (!check_valid_date(date))
+		throw("DATE is invalid");
 	return date;
 }
 
@@ -57,10 +73,10 @@ float parse_value(std::string const &value)
 	std::istringstream is(value);
 
 	if (value.empty())
-		throw("Number not found");
+		throw("NUMBER not found");
 	is >> f;
 	if (is.fail())
-		throw("Number conversion issue");
+		throw("NUMBER conversion failed");
 	return f;
 }
 
@@ -80,7 +96,6 @@ void parse_line(size_t &i, std::string const &delim, std::string const &str, std
 		second.push_back(str[i]);
 }
 
-// DB
 void db_add_pair(std::string const &date, std::string const &value, std::map<std::string, float> &map)
 {
 	std::string date_map = parse_date(date);
@@ -140,11 +155,17 @@ void db_format(std::string const &str, std::map<std::string, float> &map)
 		db_check_conf(str, date_key, rate_key);
 	else
 		db_check_conf(str, rate_key, date_key);
-
 	db_parse(date_first, str, map);
 }
 
-// INPUT
+bool getlineHelper(std::istringstream &is, std::string &line)
+{
+	getline(is, line);
+	if (is.fail())
+		throw("getline fail occured");
+	return is.eof();
+}
+
 void input_format(std::string const &str, std::map<std::string, float> const &db)
 {
 	std::istringstream is(str);
@@ -156,22 +177,21 @@ void input_format(std::string const &str, std::map<std::string, float> const &db
 	size_t i;
 
 	if (str.empty())
-		throw("file argument empty");
-	getline(is, line);
-	if (is.fail())
-		throw("error getline");
+		throw ("file is empty");
+	getlineHelper(is, line);
 	if (line.compare("date | value") == 0)
 	{
-		getline(is, line);
-		if (is.fail())
-			throw("error getLine");
+		if (is.eof())
+			throw("no entries provided");
+		getlineHelper(is, line);
 	}
-	while (line.length())
+
+	do
 	{
 		i = 0;
-		try {
-
-		parse_line(i, " | ", line, first, second);
+		try
+		{
+			parse_line(i, " | ", line, first, second);
 			date = parse_date(first);
 			value = parse_value(second);
 
@@ -179,19 +199,30 @@ void input_format(std::string const &str, std::map<std::string, float> const &db
 				throw("Number < 0");
 			if (1000 < value)
 				throw("Number > 1000");
+
 			std::map<std::string, float>::const_iterator it = db.lower_bound(first);
+			if (it->first != date)
+			{
+				if (it != db.cbegin())
+					--it;
+				else
+					throw("can't find valide DATE");
+			}
 			std::cout << date << ": " << (value * it->second) << std::endl;
 		}
-		catch (char const *err) {
-			std::cerr << first << " | " << second << " !> " << err << std::endl;
+		catch (char const *err)
+		{
+			std::cerr << line << " !> " << err << std::endl;
 		}
-		catch (const std::exception &e) {
-			std::cerr << first << " | " << second << " !> " << e.what() << std::endl;
+		catch (const std::exception &e)
+		{
+			std::cerr << line << " !> " << e.what() << std::endl;
 		}
-		getline(is, line);
-		if (is.fail())
-			throw("getline error occured");
-	}
+		line.clear();
+		if (is.eof())
+			break;
+		getlineHelper(is, line);
+	} while (line.length());
 }
 
 int main(int argc, char *argv[])
@@ -200,32 +231,37 @@ int main(int argc, char *argv[])
 	std::map<std::string, float> db;
 	std::string input_str;
 
-
-	if (argc != 2) {
+	if (argc != 2)
+	{
 		std::cerr << "Missing file argument" << std::endl;
 		return 1;
 	}
 
-	if (read_file("./bin/data.csv", db_str)) {
-		std::cerr << "./bin/date.csv error while reading file" << std::endl;
-		return (1);
+	if (read_file("./input.csv", db_str))
+	{
+		std::cerr << "csv error while reading file" << std::endl;
 	}
 
-	try {
+	try
+	{
 		db_format(db_str, db);
 	}
-	catch (const char *e) {
+	catch (const char *e)
+	{
 		std::cerr << "DB " << e << std::endl;
 	}
-	catch (std::exception const &e) {
+	catch (std::exception const &e)
+	{
 		std::cerr << "DB " << e.what() << std::endl;
 	}
 
-	if (read_file(argv[1], input_str)) {
-		std::cerr << "failed to read" << std::endl;
-		return 1;
+	if (read_file(argv[1], input_str))
+	{
+		std::cerr << "INPUT failed to read" << std::endl;
+		return (1);
 	}
-	try {
+	try
+	{
 		input_format(input_str, db);
 	}
 	catch (const char *e)
