@@ -187,7 +187,7 @@ void PmergeMe<T>::print_bench(T &c, std::string const &type, double time_elapsed
 		std::cout << *it << " ";
 	std::cout << std::endl;
 
-	std::cout << "Time to process a range of " << c.size() << " elements with std::" << type << " : " << std::fixed << time_elapsed / CLOCKS_PER_SEC << std::endl;
+	std::cout << "Time to process a range of " << c.size() << " elements with std::" << type << " : " << std::fixed << time_elapsed / CLOCKS_PER_SEC << " seconds" << std::endl;
 }
 
 template <typename T>
