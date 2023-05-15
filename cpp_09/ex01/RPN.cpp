@@ -26,9 +26,12 @@ int RPN::process(std::string const &str)
 
 	while (!is.eof())
 	{
+		tmp.clear();
 		is >> tmp;
-		if (tmp.length() != 1)
+		if (tmp.length() > 1)
 			RPN::RPNException();
+		if (tmp.length() == 0)
+			continue ;
 		if (isdigit(tmp[0]))
 			stack.push(tmp[0] - '0');
 		else if (operators.find(tmp[0]) != std::string::npos)
@@ -66,4 +69,9 @@ RPN &RPN::operator=(const RPN &rhs)
 
 RPN::~RPN(void)
 {
+}
+
+const char *RPN::RPNException::what() const throw()
+{
+	return ("Error");
 }

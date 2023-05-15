@@ -23,9 +23,5 @@ private:
 	virtual ~RPN(void);
 };
 
-const char *RPN::RPNException::what() const throw()
-{
-	return ("Error");
-}
 
 #endif
