@@ -14,6 +14,10 @@ public:
 	{
 		virtual const char *what() const throw();
 	};
+	class BitcoinExchangeDatabaseException : public std::exception
+	{
+		virtual const char *what() const throw();
+	};
 
 	void process(std::string const &path) const;
 
@@ -33,7 +37,7 @@ private:
 	void db_parse(bool date_first, std::string const &str);
 	void db_check_conf(std::string const &str, std::string const &first, std::string const &second);
 	void db_format(std::string const &str);
-	void input_format(std::string const &str, std::map<std::string, float> const &db) const;
+	void input_format(std::string const &str) const;
 
 	bool getlineHelper(std::istringstream &is, std::string &line) const;
 	void	read_file(std::string const &file_path, std::string &str) const;

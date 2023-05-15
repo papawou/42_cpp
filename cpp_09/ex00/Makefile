@@ -1,7 +1,7 @@
 CC := c++
 CC_FLAGS := -g -Wall -Wextra -Werror -std=c++98 -I./inc
 
-SRC := main.cpp
+SRC := main.cpp BitcoinExchange.cpp
 
 OBJ := $(SRC:.cpp=.o)
 

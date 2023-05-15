@@ -8,24 +8,25 @@ void BitcoinExchange::read_file(std::string const &file_path, std::string &str) 
 	if (!ifs)
 		throw BitcoinExchange::BitcoinExchangeFileException();
 	if (ifs.peek() == std::ifstream::traits_type::eof())
-		return ;
+		return;
 	ostr << ifs.rdbuf();
 	if (ifs.fail() || ostr.fail())
-		str = ostr.str();
+		throw BitcoinExchange::BitcoinExchangeFileException();
+	str = ostr.str();
 }
 
-BitcoinExchange::BitcoinExchange(std::string const &path)
+BitcoinExchange::BitcoinExchange(std::string const &path) : _db()
 {
 	std::string str;
-	
+
+	read_file(path, str);
 	try
 	{
-		read_file(path, str);
-		db_format(str, _db);
+		db_format(str);
 	}
 	catch (const char *e)
 	{
-		std::cout << "Database: " << e << std::endl;
+		throw BitcoinExchange::BitcoinExchangeDatabaseException();
 	}
 }
 
@@ -37,7 +38,7 @@ BitcoinExchange::BitcoinExchange(BitcoinExchange const &rhs) : _db(rhs._db)
 {
 }
 
-BitcoinExchange::BitcoinExchange(void)
+BitcoinExchange::BitcoinExchange(void) : _db()
 {
 }
 BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &rhs)
@@ -51,12 +52,6 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &rhs)
 BitcoinExchange::~BitcoinExchange(void)
 {
 }
-
-const char *BitcoinExchange::BitcoinExchangeFileException::what() const throw()
-{
-	return ("can't open file");
-}
-
 
 bool BitcoinExchange::check_valid_date(std::string const &date) const
 {
@@ -215,8 +210,6 @@ void BitcoinExchange::db_format(std::string const &str)
 bool BitcoinExchange::getlineHelper(std::istringstream &is, std::string &line) const
 {
 	getline(is, line);
-	if (is.fail())
-		throw("getline fail occured");
 	return is.eof();
 }
 
@@ -231,12 +224,12 @@ void BitcoinExchange::input_format(std::string const &str) const
 	size_t i;
 
 	if (str.empty())
-		throw ("file is empty");
+		return ;
 	getlineHelper(is, line);
 	if (line.compare("date | value") == 0)
 	{
 		if (is.eof())
-			throw("no entries provided");
+			return ;
 		getlineHelper(is, line);
 	}
 
@@ -283,12 +276,23 @@ void BitcoinExchange::process(std::string const &path) const
 {
 	std::string value;
 
-	try {
+	try
+	{
 		read_file(path, value);
-		input_format(value, _db);
+		input_format(value);
 	}
 	catch (BitcoinExchange::BitcoinExchangeFileException &e)
 	{
 		std::cout << "Input: " << e.what() << std::endl;
 	}
+}
+
+const char *BitcoinExchange::BitcoinExchangeFileException::what() const throw()
+{
+	return ("can't open file");
+}
+
+const char *BitcoinExchange::BitcoinExchangeDatabaseException::what() const throw()
+{
+	return ("invalid database");
 }
