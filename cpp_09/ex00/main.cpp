@@ -1,9 +1,4 @@
 #include <string>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <map>
-
 #include "BitcoinExchange.hpp"
 
 int main(int argc, char *argv[])
@@ -17,23 +12,11 @@ int main(int argc, char *argv[])
 	try
 	{
 		BitcoinExchange btc("./data.csv");
+		btc.process(argv[1]);
 	}
 	catch (std::exception const &e)
 	{
-		std::cerr << "DB " << e.what() << std::endl;
-	}
-
-	try
-	{
-		input_format(input_str, db);
-	}
-	catch (const char *e)
-	{
-		std::cerr << "INPUT " << e << std::endl;
-	}
-	catch (std::exception const &e)
-	{
-		std::cerr << "INPUT " << e.what() << std::endl;
+		std::cerr << "DB: " << e.what() << std::endl;
 	}
 
 	return (0);

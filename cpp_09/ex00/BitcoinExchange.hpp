@@ -20,7 +20,11 @@ public:
 	};
 
 	void process(std::string const &path) const;
+	void load_path(std::string const &path);
 
+	void set_map(std::map<std::string, float> db);
+
+	BitcoinExchange(void);
 	BitcoinExchange(std::string const &path);
 	BitcoinExchange(std::map<std::string, float> db);
 	BitcoinExchange(BitcoinExchange const &rhs);
@@ -41,7 +45,6 @@ private:
 
 	bool getlineHelper(std::istringstream &is, std::string &line) const;
 	void	read_file(std::string const &file_path, std::string &str) const;
-	BitcoinExchange(void);
 };
 
 #endif

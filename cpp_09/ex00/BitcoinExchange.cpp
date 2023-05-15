@@ -17,17 +17,7 @@ void BitcoinExchange::read_file(std::string const &file_path, std::string &str) 
 
 BitcoinExchange::BitcoinExchange(std::string const &path) : _db()
 {
-	std::string str;
-
-	read_file(path, str);
-	try
-	{
-		db_format(str);
-	}
-	catch (const char *e)
-	{
-		throw BitcoinExchange::BitcoinExchangeDatabaseException();
-	}
+	load_path(path);
 }
 
 BitcoinExchange::BitcoinExchange(std::map<std::string, float> db) : _db(db)
@@ -224,12 +214,12 @@ void BitcoinExchange::input_format(std::string const &str) const
 	size_t i;
 
 	if (str.empty())
-		return ;
+		return;
 	getlineHelper(is, line);
 	if (line.compare("date | value") == 0)
 	{
 		if (is.eof())
-			return ;
+			return;
 		getlineHelper(is, line);
 	}
 
@@ -268,22 +258,48 @@ void BitcoinExchange::input_format(std::string const &str) const
 		line.clear();
 		if (is.eof())
 			break;
-		getlineHelper(is, line);
-	} while (line.length());
+	} while (!getlineHelper(is, line));
 }
 
 void BitcoinExchange::process(std::string const &path) const
 {
 	std::string value;
 
+	read_file(path, value);
+	input_format(value);
+}
+
+void BitcoinExchange::set_map(std::map<std::string, float> const db)
+{
+	for (std::map<std::string, float>::iterator it; it != db.end(); ++it)
+	{
+		try
+		{
+			if (check_valid_date(it->first))
+				throw "";
+			if (it->second < 0)
+				throw "";
+		}
+		catch (const char *e)
+		{
+			throw BitcoinExchangeDatabaseException();
+		}
+	}
+	_db = db;
+}
+
+void BitcoinExchange::load_path(std::string const &path)
+{
+	std::string str;
+
+	read_file(path, str);
 	try
 	{
-		read_file(path, value);
-		input_format(value);
+		db_format(str);
 	}
-	catch (BitcoinExchange::BitcoinExchangeFileException &e)
+	catch (const char *e)
 	{
-		std::cout << "Input: " << e.what() << std::endl;
+		throw BitcoinExchange::BitcoinExchangeDatabaseException();
 	}
 }
 

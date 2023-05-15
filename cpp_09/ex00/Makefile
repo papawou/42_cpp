@@ -10,7 +10,7 @@ NAME := btc
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(CC_FLAGS) $< -o $@
+	$(CC) $(CC_FLAGS) $^ -o $@
 
 %.o : %.cpp
 	$(CC) $(CC_FLAGS) -c $^ -o $@
