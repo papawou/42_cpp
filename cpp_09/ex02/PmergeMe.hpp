@@ -9,20 +9,21 @@ template <typename T>
 class PmergeMe
 {
 public:
-	class InvalidParse : public std::exception
+	static const int K = 10;
+	class InvalidParseException : public std::exception
 	{
 		virtual const char *what() const throw();
 	};
 
-	static double bench(T &c, const char *const str);
+	static double bench(T &c, std::string const &str);
 	static void	print_bench(T &c, std::string const &type, double time_elapsed);
 
 	virtual ~PmergeMe<T>(void);
 private:
 	static void insert_sort(T &c);
-	static T merge_sort(T &c);
+	static void merge_sort(T &c);
 	static T merge_sort_merge(T &left, T &right);
-	static void parse(T &c, const char *const str);
+	static void parse(T &c, std::string const &str);
 
 	PmergeMe<T>(void);
 	PmergeMe<T>(PmergeMe const &);
@@ -121,25 +122,28 @@ T PmergeMe<T>::merge_sort_merge(T &left, T &right)
 }
 
 template <typename T>
-T PmergeMe<T>::merge_sort(T &c)
+void PmergeMe<T>::merge_sort(T &c)
 {
 	T left;
 	T right;
 	typename T::iterator mid;
 
-	if (c.size() < 2)
-		return c;
+	if (c.size() <= PmergeMe<T>::K)
+	{
+		PmergeMe<T>::insert_sort(c);
+		return ;
+	}
 	mid = c.begin();
 	std::advance(mid, c.size() / 2);
 	left.insert(left.end(), c.begin(), mid);
 	right.insert(right.end(), mid, c.end());
-	left = PmergeMe<T>::merge_sort(left);
-	right = PmergeMe<T>::merge_sort(right);
-	return PmergeMe<T>::merge_sort_merge(left, right);
+	PmergeMe<T>::merge_sort(left);
+	PmergeMe<T>::merge_sort(right);
+	c = PmergeMe<T>::merge_sort_merge(left, right);
 }
 
 template <typename T>
-double PmergeMe<T>::bench(T &c, char const *const str)
+double PmergeMe<T>::bench(T &c, std::string const &str)
 {
 	clock_t start;
 	clock_t end;
@@ -147,13 +151,13 @@ double PmergeMe<T>::bench(T &c, char const *const str)
 	PmergeMe<T>::parse(c, str);
 
 	start = clock();
-	c = PmergeMe<T>::merge_sort(c);
+	PmergeMe<T>::merge_sort(c);
 	end = clock();
 	return static_cast<double>(end - start);
 }
 
 template <typename T>
-void PmergeMe<T>::parse(T &c, char const *const str)
+void PmergeMe<T>::parse(T &c, std::string const &str)
 {
 	std::istringstream is(str);
 	std::string tmp;
@@ -161,16 +165,16 @@ void PmergeMe<T>::parse(T &c, char const *const str)
 
 	while (!is.eof())
 	{
+		tmp.clear();
 		is >> tmp;
 		for (std::string::iterator it = tmp.begin(); it != tmp.end(); ++it)
 		{
 			if (!isdigit(*it))
-				throw PmergeMe::InvalidParse();
+				throw PmergeMe::InvalidParseException();
 		}
 		if (tmp.length() == 0)
 			continue;
 		value = stoi(tmp);
-		tmp.clear();
 		c.push_back(value);
 	}
 }
@@ -183,11 +187,11 @@ void PmergeMe<T>::print_bench(T &c, std::string const &type, double time_elapsed
 		std::cout << *it << " ";
 	std::cout << std::endl;
 
-	std::cout << "Time to process a range of " << c.size() << " elements with std::" << type << " : " << time_elapsed << std::endl;
+	std::cout << "Time to process a range of " << c.size() << " elements with std::" << type << " : " << std::fixed << time_elapsed / CLOCKS_PER_SEC << std::endl;
 }
 
 template <typename T>
-const char *PmergeMe<T>::InvalidParse::what() const throw()
+const char *PmergeMe<T>::InvalidParseException::what() const throw()
 {
 	return ("error while parsing");
 }

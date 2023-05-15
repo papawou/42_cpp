@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/PmergeMe",
-			"args": ["10 0 9 8 6"],
+			"args": ["`jot -r 3000 1 100000 | tr '\n' ' '`"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

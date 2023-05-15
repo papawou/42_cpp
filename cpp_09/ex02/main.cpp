@@ -11,19 +11,26 @@ void kperror(std::string const &str)
 
 int main(int argc, char *argv[])
 {
+	std::string str;
 	std::vector<int> v;
 	std::list<int> l;
 	double time_elapsed;
 
-	if (argc != 2)
+	if (argc < 2)
 	{
-		kperror("Expected an argument");
+		kperror("Expected at least an argument");
 		return (1);
+	}
+
+	for(int i = 1; i < argc; ++i)
+	{
+		std::string tmp(argv[i]);
+		str += " " + tmp;
 	}
 
 	try
 	{
-		time_elapsed = PmergeMe<std::vector<int> >::bench(v, argv[1]);
+		time_elapsed = PmergeMe<std::vector<int> >::bench(v, str);
 	}
 	catch (const std::exception &e)
 	{
@@ -34,7 +41,7 @@ int main(int argc, char *argv[])
 
 	try
 	{
-		time_elapsed = PmergeMe<std::list<int> >::bench(l, argv[1]);
+		time_elapsed = PmergeMe<std::list<int> >::bench(l, str);
 	}
 	catch (const std::exception &e)
 	{
