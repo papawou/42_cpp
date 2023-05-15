@@ -1,80 +1,27 @@
 #include <iostream>
 #include <string>
-#include <stack>
-#include <sstream>
 
-void pout(std::string const &str)
-{
-	std::cout << "Error: " << str << std::endl;
-}
-
-int operate(int lhs, char op, int rhs)
-{
-	switch(op)
-	{
-		case '+':
-			return lhs + rhs;
-		case '-':
-			return lhs - rhs;
-		case '/':
-			if (rhs == 0)
-				throw ("divide by zero");
-			return lhs / rhs;
-		default:
-			return lhs * rhs;
-	}
-}
+#include "RPN.hpp"
 
 int main(int argc, char *argv[])
 {
-	std::string const operators("+-/*");
-	std::stack<int> stack;
-	std::istringstream is(argv[1]);
-	std::string tmp;
 
 	if (argc != 2)
 	{
-		pout("expect an argument");
+		std::cout << "expect an argument" << std::endl;
 		return (1);
 	}
 
-	while (!is.eof())
+	try
 	{
-		is >> tmp;
-		if (tmp.length() != 1)
-		{
-			pout("expect one char");
-			return (1);
-		}
-		if (isdigit(tmp[0]))
-			stack.push(tmp[0] - '0');
-		else if (operators.find(tmp[0]) != std::string::npos)
-		{
-			if (stack.size() < 2)
-			{
-				pout("incorrect format");
-				return (1);
-			}
-			int rhs = stack.top();
-			stack.pop();
-			int lhs = stack.top();
-			stack.pop();
-			try {
-				stack.push(operate(lhs, tmp[0], rhs));
-			}
-			catch (const char *e)
-			{
-				pout(e);
-				return (1);
-			}
-		}
-		else
-		{
-			pout("unknown char");
-			return (1);
-		}
+		std::string str(argv[1]);
+		int n = RPN::process(str);
+		std::cout << "Result: " << n << std::endl;
 	}
-
-	std::cout << stack.top() << std::endl;
+	catch (std::exception const &e)
+	{
+		std::cout << e.what() << std::endl;
+		return (1);
+	}
 	return (0);
 }
